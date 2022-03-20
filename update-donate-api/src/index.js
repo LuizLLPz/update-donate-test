@@ -5,7 +5,7 @@ import { apiHandler } from "./api/master.js";
 
 async function main() {
     config();
-    corsOptions = {
+    const corsOptions = {
         origin: process.env.CONTENT_ORIGIN,
         optionsSuccessStatus: 200
     };
