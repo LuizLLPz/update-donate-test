@@ -1,0 +1,101 @@
+@import url(../css/alerta.css);
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label{
+    margin: 20px 0 10px 0;
+    align-self: flex-start;
+}
+
+input{
+    background: #E9E9E9;
+    height: 30px;
+    width: 67vw;
+    max-width: 310px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    outline: 0;
+    padding: 0 15px;
+}
+
+input::placeholder{
+
+    padding-left: 5px;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 67vw;
+    max-width: 310px;
+}
+
+.input-invalido input{
+    border: 1px solid red;
+}
+
+.input-invalido label{
+    color: red;
+}
+
+.input-erro{
+    display: none;
+    align-self: flex-start;
+    margin-top: 5px;
+    margin-left: 10px;
+    filter: drop-shadow(0 0 1rem crimson);
+    color: red;
+}
+
+.input-invalido .input-erro{
+    display: block;
+}
+
+
+button{
+    height: 35px;
+    background-color: #2b137a;
+    color: var(--cor-secondary);
+
+    width: 170px;
+    margin-top: 35px;
+    border: solid 1px black;
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.6) ;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    outline: 0;
+    transition: 0.3s linear;
+    cursor: pointer;
+}
+
+button:hover{ 
+    background-color: #402067;
+}
+
+
+.titulo_login{
+    margin: 40px 0 0 0;
+}
+
+
+.dadosIncorretos{
+    display: none;
+    margin-top: 10px;
+    color: red;
+}
+
+.valorLoginInvalido > .dadosIncorretos {
+    display: block;
+}
+
+.alerta_conteudo-perfil > input {
+    min-width: 40vw;
+}

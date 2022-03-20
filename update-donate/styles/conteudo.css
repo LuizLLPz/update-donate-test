@@ -1,0 +1,77 @@
+/* Referente ao conteúdo principal das páginas 
+Por exemplo: tags que se repetem muito ficam aqui ou contudo que aplica no site inteiro
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@500;700&family=Roboto:wght@700&display=swap');
+
+
+body{
+    background-color: var(--cor-fundo);
+    font-family: 'Noto Sans Display', sans-serif;
+}
+
+.body-ativo{
+    overflow: hidden;
+}
+
+h1{
+    font-size: 22px;
+}
+
+h2{
+    font-size: 18px;
+}
+
+h3{
+    font-size: 16px;
+}
+
+h4{
+    font-size: 12px;
+}
+
+
+:root{
+    --cor-fundo: #aaaaaa;
+    --cor-primary: #2B137A ;
+    --cor-secondary: #E9E9E9;
+}
+
+::-webkit-scrollbar {
+    width: 5px;            
+}
+  
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.20);     
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 70, 70, 0.7);    
+    border-radius: 2px;
+    width: 3px;       
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+.conteudo_principal {
+    margin-top: 95px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.titulo_principal {
+    margin-top: 30px;
+    width: 90vw;
+    font-size: 22px;
+}
+
+@media screen and (min-width: 1024px) {
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+}
