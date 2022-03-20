@@ -19,7 +19,7 @@ async function main() {
         res.send("Início");
     });
 
-    app.get("/api*", (req, res) => {
+    app.get("/api*", cors(corsOptions), (req, res) => {
         apiHandler(req, res);
     });
 
