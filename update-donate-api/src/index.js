@@ -2,8 +2,11 @@ import App from "express";
 import { config } from "dotenv-safe";
 import cors from "cors";
 import { apiHandler } from "./api/master.js";
+import knexfile from "../knexfile.js";
+import knex from "knex";
 
 async function main() {
+    knex(knexfile['development']);
     config();
     const corsOptions = {
         origin: process.env.CONTENT_ORIGIN,

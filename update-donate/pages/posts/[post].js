@@ -1,6 +1,16 @@
+import { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 
 export default function Post() {
+  const [post, setPost] = useState(null);
+
+  useEffect(async() => {
+      const post = await (await fetch('urlposts')).json(); 
+      setPost(post);
+  }, post)
+
+
+
   return (
     <div>
       <Header/>
@@ -17,12 +27,12 @@ export default function Post() {
         </div>
         <div className="discussao_conteudo-principal">
           <h2 className="discussao_titulo">
-            Titulo Titulo Titulo Titulo Titulo Titulo Titulo Titulo
+            {post.title}
           </h2>
           <div className="discussao_informacao">
-            <div className="discussao_texto-categoria">Software</div>
+            <div className="discussao_texto-categoria">{post.category}</div>
             <h5 className="discussao_texto-dia">
-              Data de publicação<h5 className="discussao_data">dd/mm/yyyy</h5>
+              Data de publicação<h5 className="discussao_data">{post.date}</h5>
             </h5>
           </div>
           <div className="discussao_quantidade-respostas">
