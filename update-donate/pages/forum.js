@@ -1,7 +1,17 @@
 import { Header } from '../components/Header';
 import { PostCard } from "../components/PostCard";
+import { useState, useEffect } from "react";
 
 export default function Forum() {
+  const [posts, setPosts] = useState([]);
+  useEffect(async () => {
+    const resp = await fetch('http://localhost:4000/api/posts');
+    console.log(resp);
+    const postRes = await resp.json();
+    console.log(postRes);
+    setPosts(postRes);
+  }, [])
+
   return (
     <div>
       <Header/>
@@ -26,10 +36,10 @@ export default function Forum() {
         </form>
 
         <div className="forum_discussoes">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => 
+            {posts ? posts.map((post) => 
             (
-               <PostCard/>
-            ))}
+               <PostCard post={post} key={post.id}/>
+            )) : 'Carregando postagens...'}
         </div>
       </main>
 

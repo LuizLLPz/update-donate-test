@@ -4,15 +4,11 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 export default {
-
   development: {
     client: 'mysql2',
     connection: {
-      uri: process.env.DB_URI,
-    },
-    migrations: {
-      tableName: 'knex_migrations',
-      directory: './src/migrations'
+      uri: 'mysql://root:@localhost/update_donate'
     }
-  },
+  }
+
 };
