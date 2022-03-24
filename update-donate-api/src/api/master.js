@@ -1,9 +1,14 @@
 import { conn } from '../index.js';
+
+const patterns = {
+    '/posts' : async() => {
+        return await conn.select().table('post');
+    } 
+}
+
+
 export const apiHandler = async (req, res) => {
     const pattern = req.url.substr(4);
-    if (pattern == '/posts') {
-        const result = await conn.select().table('post');
-        res.json(result);
-    }
+    res.json(await patterns[pattern]());
 }
 
