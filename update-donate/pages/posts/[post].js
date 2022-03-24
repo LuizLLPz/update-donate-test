@@ -2,12 +2,8 @@ import { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 
 export default function Post() {
-  const [post, setPost] = useState(null);
 
-  useEffect(async() => {
-      const post = await (await fetch('urlposts')).json(); 
-      setPost(post);
-  }, post)
+  const post = {title: 'teste', category: 'teste', date: 'teste'};
 
 
 

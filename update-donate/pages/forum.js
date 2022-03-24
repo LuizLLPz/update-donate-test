@@ -1,15 +1,14 @@
 import { Header } from '../components/Header';
 import { PostCard } from "../components/PostCard";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Forum() {
   const [posts, setPosts] = useState([]);
   useEffect(async () => {
-    const resp = await fetch('http://localhost:4000/api/posts');
-    console.log(resp);
-    const postRes = await resp.json();
+    const postRes = await axios.get('http://localhost:4000/api/posts');
     console.log(postRes);
-    setPosts(postRes);
+    setPosts(postRes.data);
   }, [])
 
   return (
