@@ -6,7 +6,7 @@ import axios from "axios";
 export default function Forum() {
   const [posts, setPosts] = useState([]);
   useEffect(async () => {
-    const postRes = await axios.get('http://localhost:4000/api/posts');
+    const postRes = await axios.get('http://localhost:4000/api/post');
     console.log(postRes);
     setPosts(postRes.data);
   }, [])
