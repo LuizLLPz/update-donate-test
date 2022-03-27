@@ -1,4 +1,4 @@
-@import url(../css/alerta.css);
+@import url(alerta.css);
 .formulario {
     display: flex;
     flex-direction: column;
