@@ -35,10 +35,13 @@ export default function Forum() {
         </form>
 
         <div className="forum_discussoes">
-            {posts ? posts.map((post) => 
-            (
-               <PostCard post={post} key={post.id}/>
-            )) : 'Carregando postagens...'}
+            {posts ? 
+              posts.length > 0 ? 
+                posts.map((post) => (
+                  <PostCard post={post} key={post.id}/>
+                )) :
+                'Não há postagens'
+            : 'Carregando postagens...'}
         </div>
       </main>
 
