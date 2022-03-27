@@ -7,5 +7,6 @@ const conn = knex(knexfile['development']);
 const routes = Router();
 
 routes.get("/api/post", (req, res) => Post.get(req, res, conn));
+routes.post("/api/post", (req, res) => Post.post(req, res, conn));
 
 export default routes;

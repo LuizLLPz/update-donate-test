@@ -11,10 +11,12 @@ const corsOptions = {
 async function main() {
     config();
     const app = App();
+    
     app.listen(process.env.SERVER_PORT, () => {
         console.log(`Server is running on port ${process.env.SERVER_PORT}`);
     });
     app.use(cors(corsOptions));
+    app.use(App.json());
     app.use(routes);
 }
 
