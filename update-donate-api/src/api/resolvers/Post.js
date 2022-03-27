@@ -4,7 +4,7 @@ export default class Post {
     };
 
     static post = async (req, res, conn) => {
-        if (req.body) {
+        if (req.body.titulo && req.body.categoria && req.body.corpo) {
             return res.json(await conn.insert(req.body).into('Post'));
         } else {
             return res.status(400).json({ error: 'Informações inválidas' });
