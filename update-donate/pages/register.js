@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Register() {
-  const [registerForm, setRegisterForm] = useState({name: '', email: '', password: '', cpf: ''});
+  const [registerForm, setRegisterForm] = useState({nome: '', email: '', password: '', cpf: ''});
   const submitForm = async (e) => {
     const { data } = await axios.post("http://localhost:4000/api/user", registerForm);
     if (data.error) {
@@ -16,7 +16,7 @@ export default function Register() {
     <Header/>
     <main class="conteudo_principal">
     <h1>Cadastre-se</h1>
-    <form class="formulario"  action="../pages/cadastroConcluido.html" onsubmit="cadastraDados()">
+    <form class="formulario"  action="../pages/cadastroConcluido.html" onSubmit="cadastraDados()">
         <div class="input-container">
             <label for="nome">Nome Completo</label>
             <input type="text" 
@@ -39,15 +39,19 @@ export default function Register() {
         </div>
         <div class="input-container">
             <label for="cpf">CPF</label>
-            <input type="text" id="cpf" required data-type="cpf"/>
+            <input type="text" id="cpf"
+            name="cpf"
+            value={registerForm.cpf}
+            onChange={(e) => setRegisterForm({...registerForm, [e.target.name]: e.target.value})}
+            required data-type="cpf"/>
             <span class="input-erro">Este campo não está válido</span>
         </div>
         <div class="input-container">
             <label for="senha">Senha</label>
             <input type="password" 
             id="senha" 
-            name="senha"
-            value={registerForm.senha}
+            name="password"
+            value={registerForm.password}
             onChange={(e) => setRegisterForm({...registerForm, [e.target.name]: e.target.value})}
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.*[ !@#$%&*_=+-]).{6,12}" 
             title="A senha deve ter entre 6 a 12 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos" 
