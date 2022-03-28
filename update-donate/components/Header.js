@@ -22,7 +22,7 @@ export function Header() {
                   alt=""
                 />
               </div>
-              <div onClick={() => router.push('/cadastro')} className="usuario_link-cadastro">
+              <div onClick={() => router.push('/register')} className="usuario_link-cadastro">
                 Cadastre-se
               </div>
             </div>

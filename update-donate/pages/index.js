@@ -12,7 +12,7 @@ export default function Home() {
                 Transforme o seu computador antigo em uma causa social!
               </h1>
               <a href="pages/login.html">Login</a>
-              <a href="pages/cadastro.html">Cadastro</a>
+              <a href="register">Cadastro</a>
               <h3 className="titulo_secundario">
                 Doe peças que não usa para pessoas que precisam
               </h3>
