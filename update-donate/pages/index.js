@@ -1,9 +1,16 @@
+import { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
 
 export default function Home() {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    setUser(JSON.parse(sessionStorage.getItem('user')));
+    console.log(user)
+  }, []);
   return (
     <div>
-        <Header/>
+        <Header user={user}/>
         <main className="conteudo_principal">
           <div className="conteudo_apresentacao-principal">
             <img className="update_donate-art" src="assets/img/Art2.png" />

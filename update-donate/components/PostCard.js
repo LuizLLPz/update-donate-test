@@ -18,7 +18,7 @@ export const PostCard = ({post}) => {
         <div className="forum_img-fundo">
           <img className="forum_img" src="../assets/img/usuarioPadrao.png" />
         </div>
-        <h3 className="forum_usuario">Lucas</h3>
+        <h3 className="forum_usuario">{post.nome.split(' ')[0]}</h3>
       </div>
     </div>
   );

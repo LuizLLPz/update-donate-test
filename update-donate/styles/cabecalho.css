@@ -104,13 +104,17 @@
 
 .usuario{
     display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.usuario__container {
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 100px;
     height: auto;
-
 }
-
 .usuario_img{
     background-color: var(--cor-fundo);
     border-radius: 100px;
@@ -146,7 +150,7 @@
         width: auto;
         max-width: 500px;
         border: none;
-        height: auto;
+        height: 70px;
         position: static;
         box-shadow: none;
         border-radius: 0;
@@ -159,6 +163,10 @@
     }
     .cabecalho_item--login{
         order: 1;
+    }
+
+    .cabecalho__nome {
+        cursor: pointer;
     }
 
     .cabecalho_div{
@@ -181,7 +189,6 @@
     .usuario{
         order: 1;
         display: flex;
-        flex-direction: column;
         align-items: center;
         width: 100px;
         height: auto;

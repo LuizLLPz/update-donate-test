@@ -4,16 +4,20 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Forum() {
+  const [user, setUser] = useState();
+
   const [posts, setPosts] = useState([]);
   useEffect(async () => {
     const postRes = await axios.get('http://localhost:4000/api/post');
+    setUser(JSON.parse(sessionStorage.getItem('user')));
     console.log(postRes);
-    setPosts(postRes.data);
+    console.log(user)
+    setPosts(postRes.data[0]);
   }, [])
 
   return (
     <div>
-      <Header/>
+      <Header user={user}/>
       <main className="conteudo_principal">
         <h1>Fórum</h1>
 

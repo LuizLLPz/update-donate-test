@@ -1,23 +1,34 @@
+import { useState, useEffect } from "react";
 import { Header } from "../components/Header";
-import { useState } from "react";
 import axios from "axios";
 
 export default function Home() {
   const [formPost, setFormPost] = useState({categoria: 'Hardware e Software', titulo: '', corpo: ''});
-   
-  const changePostValues = (e) => {
-    setFormPost({
-      ...formPost,
-      [e.target.name]: e.target.value,
-    });
+  const [user, setUser] = useState();
+  const [userPosts, setUserPosts] = useState();
+  const becameDonator = () => {
+    alert('Now you are a donator!');
   }
-  const sendPost = () => {
-    axios.post('http://localhost:4000/api/post', formPost);
+  useEffect( async () => {
+    setUser(JSON.parse(sessionStorage.getItem('user')));
+    setUserPosts(await axios.get('http://localhost:4000/api/post', {uid: user.id}));
+
+  }, []);
+  const changePostValues = (e) => {
+    setFormPost({...formPost, [e.target.name]: e.target.value, uid: user.id});
+  }
+  const sendPost = async () => {
+    console.log(formPost);
+    const res = await axios.post('http://localhost:4000/api/post', formPost);
+    console.log(res);
   };
 
   return (
+    
     <div>
-      <Header />
+      {user ? 
+      <>
+      <Header user={user}/>
       <main className="conteudo_principal">
         <div className="perfil_card">
           <div className="perfil_conteudo">
@@ -28,14 +39,14 @@ export default function Home() {
                 className="perfil_img"
               />
             </div>
-            <h2 className="perfil_text perfil_text-usuario">Usuário</h2>
+            <h2 className="perfil_text perfil_text-usuario">{user.nome.split(' ')[0]}</h2>
           </div>
           <div className="perfil_conteudo">
             <a className="perfil_text">Alterar nome</a>
             <a className="perfil_text">Alterar senha</a>
           </div>
 
-          <button id="torne-seDoador" className="perfil_btn">
+          <button id="torne-seDoador" className="perfil_btn" onClick={becameDonator}>
             Torne-se um doador
           </button>
         </div>
@@ -89,10 +100,19 @@ export default function Home() {
           </button>
         </div>
         <h2>Suas postagens no fórum</h2>
-        <div id="perfil_discusoes" className="perfil_discusoes"></div>
+        <div id="perfil_discusoes" className="perfil_discusoes">
+        {userPosts ? 
+              userPosts.length > 0 ? 
+                userPosts.map((post) => (
+                  <PostCard post={post} key={post.id}/>
+                )) :
+                'Não há postagens'
+            : 'Carregando postagens...'}
+        </div>
         <h2>Suas solicitações</h2>
         <div id="seus_interreses" className="perfil_doacoes"></div>
       </main>
+      </> : 'Faça login para acessar essa página!'}
     </div>
   );
 }
