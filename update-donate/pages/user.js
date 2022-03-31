@@ -24,7 +24,11 @@ export default function Home() {
   const sendPost = async () => {
     console.log(formPost);
     const res = await axios.post('http://localhost:4000/api/post', formPost);
-    console.log(res);
+    if (!res.error) {
+      alert('Postado com sucesso!');
+      const items = await axios.post('http://localhost:4000/api/post', {uid: user.id});
+      setUserPosts(items.data[0]);
+    }
   };
 
   return (

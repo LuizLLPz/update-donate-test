@@ -37,7 +37,7 @@ export function Header({ user }) {
                 Cadastre-se
                 </div> :
                 <div className="usuario_link_cadastro cabecalho_nome" onClick={() => router.push('/user')}>
-                  {user.nome.split(' ')[0]}
+                  <span className="usuario_nome">{user.nome.split(' ')[0]}</span>
                 </div>}
                 </div>
                 {user && <div onClick={logout} className="usuario_link-cadastro" >Sair</div>}

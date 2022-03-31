@@ -6,14 +6,25 @@ import axios from "axios";
 export default function Forum() {
   const [user, setUser] = useState();
 
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState({});
+  
   useEffect(async () => {
     const postRes = await axios.get('http://localhost:4000/api/post');
     setUser(JSON.parse(sessionStorage.getItem('user')));
     console.log(postRes);
     console.log(user)
-    setPosts(postRes.data[0]);
+    setPosts({posts: postRes.data[0], filtered: postRes.data[0]});
   }, [])
+
+  const filterPosts = (e) => {
+    if (e.target.tagName === 'SELECT') {
+      const filtered = posts.posts.filter(post => post.categoria === e.target.value);
+      setPosts({...posts, filtered});
+    } else {
+      setPosts({...posts, filtered: posts.posts.filter(post => post.titulo.toLowerCase().includes(e.target.value.toLowerCase()))});
+    }
+  }
+
 
   return (
     <div>
@@ -23,7 +34,7 @@ export default function Forum() {
 
         <button className="forum_btn">Minhas Postagens</button>
 
-        <select name="" id="selectForum" className="forum_select">
+        <select name="" id="selectForum" className="forum_select" onChange={filterPosts}>
           <option value="Todas as categorias">Todas as categorias</option>
           <option value="Software">Software</option>
           <option value="Hardware">Hardware</option>
@@ -34,14 +45,15 @@ export default function Forum() {
             data-input="search"
             type="text"
             placeholder="Pesquise por assunto"
+            onChange = {filterPosts}
           />
           <option value=""></option>
         </form>
 
         <div className="forum_discussoes">
-            {posts ? 
-              posts.length > 0 ? 
-                posts.map((post) => (
+            {posts.filtered ? 
+              posts.filtered.length > 0 ? 
+                posts.filtered.map((post) => (
                   <PostCard post={post} key={post.id}/>
                 )) :
                 'Não há postagens'
