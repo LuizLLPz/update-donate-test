@@ -6,7 +6,6 @@ export default function Home() {
 
   useEffect(() => {
     setUser(JSON.parse(sessionStorage.getItem('user')));
-    console.log(user)
   }, []);
   return (
     <div>

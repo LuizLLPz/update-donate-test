@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Header } from "../components/Header";
+import { PostCard } from "../components/PostCard";
 import axios from "axios";
 
 export default function Home() {
@@ -11,9 +12,12 @@ export default function Home() {
   }
   useEffect( async () => {
     setUser(JSON.parse(sessionStorage.getItem('user')));
-    setUserPosts(await axios.get('http://localhost:4000/api/post', {uid: user.id}));
+    if (user) {
+      const items = await axios.post('http://localhost:4000/api/post', {uid: user.id});
+      setUserPosts(items.data[0]);
+    }
 
-  }, []);
+  }, user);
   const changePostValues = (e) => {
     setFormPost({...formPost, [e.target.name]: e.target.value, uid: user.id});
   }
@@ -101,13 +105,7 @@ export default function Home() {
         </div>
         <h2>Suas postagens no fórum</h2>
         <div id="perfil_discusoes" className="perfil_discusoes">
-        {userPosts ? 
-              userPosts.length > 0 ? 
-                userPosts.map((post) => (
-                  <PostCard post={post} key={post.id}/>
-                )) :
-                'Não há postagens'
-            : 'Carregando postagens...'}
+        {userPosts && userPosts.map(post => <PostCard post={post}/>)}
         </div>
         <h2>Suas solicitações</h2>
         <div id="seus_interreses" className="perfil_doacoes"></div>

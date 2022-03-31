@@ -5,6 +5,7 @@ export function Header({ user }) {
   const logout = () => {
     sessionStorage.removeItem("user");
     router.push("/");
+    router.reload();
   }
 
   return (
@@ -24,7 +25,7 @@ export function Header({ user }) {
             
             <>
             <div className="usuario">
-              <div class="usuario__container">
+              <div className="usuario__container">
                 <div className="usuario_img">
                   <img
                     className="usuario_img-padrao"

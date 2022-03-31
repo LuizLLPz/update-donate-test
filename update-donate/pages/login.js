@@ -11,6 +11,7 @@ export default function Register() {
         alert(data.error);
     } else {
         sessionStorage.setItem("user", JSON.stringify(data));
+        console.log(sessionStorage.getItem("user"));
         router.push('/');
     }
   }
