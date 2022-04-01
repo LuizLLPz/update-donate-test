@@ -13,15 +13,15 @@ export default function Forum() {
     setUser(JSON.parse(sessionStorage.getItem('user')));
     console.log(postRes);
     console.log(user)
-    setPosts({posts: postRes.data[0], filtered: postRes.data[0]});
+    setPosts({all: postRes.data[0], filtered: postRes.data[0]});
   }, [])
 
   const filterPosts = (e) => {
     if (e.target.tagName === 'SELECT') {
-      const filtered = posts.posts.filter(post => post.categoria === e.target.value);
+      const filtered = e.target.value == 'All' ? posts.all : posts.all.filter(post => post.categoria === e.target.value);
       setPosts({...posts, filtered});
     } else {
-      setPosts({...posts, filtered: posts.posts.filter(post => post.titulo.toLowerCase().includes(e.target.value.toLowerCase()))});
+      setPosts({...posts, filtered: posts.filtered.filter(post => post.titulo.toLowerCase().includes(e.target.value.toLowerCase()))});
     }
   }
 
@@ -35,7 +35,7 @@ export default function Forum() {
         <button className="forum_btn">Minhas Postagens</button>
 
         <select name="" id="selectForum" className="forum_select" onChange={filterPosts}>
-          <option value="Todas as categorias">Todas as categorias</option>
+          <option value="All">Todas as categorias</option>
           <option value="Software">Software</option>
           <option value="Hardware">Hardware</option>
           <option value="Hardware e Software">Hardware e Software</option>
