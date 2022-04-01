@@ -10,7 +10,9 @@ routes.get("/api/post", (req, res) => Post.get(req, res, conn));
 routes.post("/api/post", (req, res) => Post.post(req, res, conn));
 routes.get("/api/user", (req, res) => User.get(req, res, conn));
 routes.post("/api/user", (req, res) => User.post(req, res, conn));
+routes.put("/api/user", (req, res) => User.put(req, res, conn));
 routes.post("/api/user/login", (req, res) => User.login(req,res,conn));
+
 
 routes.get("/api/postd", async (req, res) => {
     await conn.truncate('Post');

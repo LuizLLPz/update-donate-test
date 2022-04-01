@@ -16,7 +16,9 @@ export default class User {
        
     }
     static put = async (req, res, conn) => {
-        
+        if (req.body.tipo) {
+            res.json(await conn('User').where('id', req.body.uid).update({tipo: req.body.tipo}));
+        }
     }
 
     static login = async (req, res, conn) => {

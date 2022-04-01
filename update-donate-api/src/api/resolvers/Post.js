@@ -7,7 +7,7 @@ export default class Post {
     static post = async (req, res, conn) => {
         if (req.body.uid && !req.body.titulo) {
             return res.json(await conn.schema.raw(`SELECT * FROM Post INNER JOIN User ON Post.uid=User.id where uid=${req.body.uid}
-            order by Post.id desc
+            order by Post.id desc   
             ;`));
         }
         if (req.body.titulo && req.body.categoria && req.body.corpo) {

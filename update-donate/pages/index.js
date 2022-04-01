@@ -1,3 +1,4 @@
+import router from 'next/router';
 import { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
 
@@ -17,8 +18,12 @@ export default function Home() {
               <h1 className="titulo_principal">
                 Transforme o seu computador antigo em uma causa social!
               </h1>
-              <a href="pages/login.html">Login</a>
-              <a href="register">Cadastro</a>
+              {!user && 
+                <> 
+                  <a href="pages/login.html">Login</a>
+                  <a href="register">Cadastro</a>
+                </> 
+              }
               <h3 className="titulo_secundario">
                 Doe peças que não usa para pessoas que precisam
               </h3>
@@ -28,12 +33,14 @@ export default function Home() {
                 fornecendo uma estrutura sólida para doação de peças de
                 informática, componentes e equipamentos eletrônicos usados.
               </p>
-
+              {!user &&
+              <>
               <p>Cadastre-se e ajude!</p>
 
-              <button className="index-button" onClick="toCadastro()">
+               <button className="index-button" onClick={() => router.push('/register')}>
                 Cadastre-se
-              </button>
+              </button> 
+              </>}
             </div>
           </div>
         </main>

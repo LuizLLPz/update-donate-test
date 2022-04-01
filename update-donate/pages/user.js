@@ -1,3 +1,4 @@
+import router from 'next/router';
 import { useState, useEffect } from "react";
 import { Header } from "../components/Header";
 import { PostCard } from "../components/PostCard";
@@ -7,8 +8,10 @@ export default function Home() {
   const [formPost, setFormPost] = useState({categoria: 'Hardware e Software', titulo: '', corpo: ''});
   const [user, setUser] = useState();
   const [userPosts, setUserPosts] = useState();
-  const becameDonator = () => {
-    alert('Now you are a donator!');
+  const becameDonator = async () => {
+    await axios.put('http://localhost:4000/api/user', {uid: user.id, tipo: 'doador'});
+    sessionStorage.setItem('user', JSON.stringify({...user, tipo: 'doador'}));
+    router.reload();
   }
   useEffect( async () => {
     setUser(JSON.parse(sessionStorage.getItem('user')));
@@ -54,16 +57,16 @@ export default function Home() {
             <a className="perfil_text">Alterar senha</a>
           </div>
 
-          <button id="torne-seDoador" className="perfil_btn" onClick={becameDonator}>
+          {user.tipo === 'donatário' && <button id="torne-seDoador" className="perfil_btn" onClick={becameDonator}>
             Torne-se um doador
-          </button>
+          </button> }
         </div>
 
-        <div id="conteudoDoador1" className="conteudo_desativado">
+        <div id="conteudoDoador1" className={user.tipo === 'donatário' && 'conteudo_desativado'}>
           <h2>Pessoas interressadas</h2>
           <div id="perfil_interreses" className="perfil_interreses"></div>
         </div>
-        <div id="conteudoDoador2" className="conteudo_desativado">
+        <div id="conteudoDoador2" className={user.tipo === 'donatário' && 'conteudo_desativado'}>
           <div className="entrada_doacoes">
             <h2>Suas Doações</h2>
             <label>Titulo</label>
