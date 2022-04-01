@@ -1,7 +1,13 @@
 export default class Post {
     static get = async (req, res, conn) => {
-        return res.json(await conn.schema.raw(`SELECT * FROM Post INNER JOIN User ON Post.uid=User.id
-        order by Post.id desc;`));
+        return res.json(await conn.schema.raw(`SELECT p.titulo,p.categoria,p.corpo,p.created_at,p.pid, u.nome, COUNT(p2.pid) as respostas
+        FROM
+            Post p INNER JOIN User as u on u.id = p.uid LEFT JOIN
+            Post p2 ON p.id = p2.pid
+        where p.pid is NULL
+        GROUP BY p.id
+       
+        order by p.id desc;`));
     };
 
     static post = async (req, res, conn) => {

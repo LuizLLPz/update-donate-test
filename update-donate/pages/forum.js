@@ -21,6 +21,10 @@ export default function Forum() {
       const filtered = e.target.value == 'All' ? posts.all : posts.all.filter(post => post.categoria === e.target.value);
       setPosts({...posts, filtered});
     } else {
+      if(e.target.value === '') {
+        const filtered = posts.all;
+        setPosts({...posts, filtered});
+      }
       setPosts({...posts, filtered: posts.filtered.filter(post => post.titulo.toLowerCase().includes(e.target.value.toLowerCase()))});
     }
   }
