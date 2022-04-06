@@ -1,6 +1,6 @@
 export default class Post {
     static get = async (req, res, conn) => {
-        return res.json(await conn.schema.raw(`SELECT p.titulo,p.categoria,p.corpo,p.created_at,p.pid, u.nome, COUNT(p2.pid) as respostas
+        return res.json(await conn.schema.raw(`SELECT p.id, p.titulo,p.categoria,p.corpo,p.created_at,p.pid, u.nome, COUNT(p2.pid) as respostas
         FROM
             Post p INNER JOIN User as u on u.id = p.uid LEFT JOIN
             Post p2 ON p.id = p2.pid
@@ -11,10 +11,17 @@ export default class Post {
     };
 
     static post = async (req, res, conn) => {
+        if(req.body.pid) {
+            const post =  await conn.select().from('Post').where({id: req.body.pid});
+            return res.json({post: post, respostas: 'resp'});
+        }
+
         if (req.body.uid && !req.body.titulo) {
-            return res.json(await conn.schema.raw(`SELECT * FROM Post INNER JOIN User ON Post.uid=User.id where uid=${req.body.uid}
+            const post = await (conn.schema.raw(`SELECT Post.id, Post.titulo, Post.categoria, Post.created_at, User.nome FROM Post INNER JOIN User ON Post.uid=User.id where uid=${req.body.uid}
+            and Post.pid is null
             order by Post.id desc   
             ;`));
+            return res.json(post);
         }
         if (req.body.titulo && req.body.categoria && req.body.corpo) {
             return res.json(await conn.insert(req.body).into('Post'));

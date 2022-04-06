@@ -1,8 +1,9 @@
 import router from "next/router";
 
 export const PostCard = ({post}) => {
+  console.log(post);
   return (
-    <div className="forum_card" onClick={() => router.push("/posts/teste")}>
+    <div className="forum_card" onClick={() => router.push(`/posts/${post.id}`)}>
       <div className="forum_conteudo-texto">
         <div className="forum_texto-parteUm">
           <h2 className="forum_texto-titulo">{post.titulo}</h2>
