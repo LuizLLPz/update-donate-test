@@ -21,9 +21,16 @@ export default class Post {
 
 
         if(req.body.pid) {
-            const post = await conn.select('*').from('Post').where('id', req.body.pid); 
+            const post = await conn.schema.raw(`SELECT p.id, p.titulo,p.categoria,p.corpo,p.created_at,p.pid, u.nome, COUNT(p2.pid) as respostas
+            FROM
+                Post p INNER JOIN User as u on u.id = p.uid LEFT JOIN
+                Post p2 ON p.id = p2.pid
+            where p.id = ${req.body.pid}
+            GROUP BY p.id
+           
+            order by p.id desc;`); 
             const respostas = await conn.schema.raw(`SELECT p.corpo, p.created_at, u.nome from Post p inner join User u on u.id = p.uid where p.pid = ${req.body.pid}`);
-            return res.json({post: post, respostas: respostas[0]});
+            return res.json({post: post[0], respostas: respostas[0]});
         }
 
         

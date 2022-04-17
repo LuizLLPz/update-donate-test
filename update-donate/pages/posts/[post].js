@@ -38,7 +38,7 @@ const sendReply =  async (value) => {
     uid: user.id,
     pid: router.query.post,
   });
-  setPostData({...postData, respostas: [...postData.respostas, {
+  setPostData({post: {...postData.post, respostas: postData.post.respostas+1}, respostas: [...postData.respostas, {
     id: user.id,
     corpo: value,
     nome: user.nome,
@@ -80,7 +80,7 @@ const sendReply =  async (value) => {
           </div>
           <div className="discussao_quantidade-respostas">
             <h5 className="discussao_quantidade-texto">
-              Respostas:<h5 className="discussao_quantidade-texto">2</h5>
+              Respostas:<h5 className="discussao_quantidade-texto">{postData.post.respostas}</h5>
             </h5>
           </div>
           <p className="discussao_texto-princiapl">
