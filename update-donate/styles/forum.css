@@ -184,7 +184,43 @@
         width: 78%;
     }
 
-    
+    .modal {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        display: flex;
+    }
 
+    .modal_conteudo {
+        margin: auto;
+        width: 500px;
+        height: 500px;
+        background-color: white;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal_conteudo-titulo h2{
+        font-size: 28px;
+        margin: 50px 0 10px 0;
+    }
+
+    .modal_conteudo textarea {
+        margin-top: 50px;
+        width: 400px;
+        height: 125px;
+    }
+
+    .modal_conteudo-botoes {
+        display: flex;
+        flex-direction: column;
+        margin-top: 100px;
+    }
 
 }

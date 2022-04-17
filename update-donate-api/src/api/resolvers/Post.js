@@ -12,13 +12,21 @@ export default class Post {
     };
 
     static post = async (req, res, conn) => {
-        if(req.body.pid) {
-            //Select post and replies based on pid
-            const post = await conn.select('*').from('Post').where('id', req.body.pid); 
-            const respostas = await conn.select('*').from('Post').where('pid', req.body.pid).innerJoin('User', 'User.id', 'Post.uid');
-            return res.json({post: post, respostas: respostas});
+
+        if (req.body.corpo && req.body.uid && req.body.pid) {
+            const post = await conn.schema.raw(`INSERT INTO Post (titulo, categoria, corpo, uid, pid) 
+            VALUES ('Resposta', 'Hardware & Software', '${req.body.corpo}', ${req.body.uid}, ${req.body.pid})`);
+            return res.json(post);
         }
 
+
+        if(req.body.pid) {
+            const post = await conn.select('*').from('Post').where('id', req.body.pid); 
+            const respostas = await conn.schema.raw(`SELECT p.corpo, p.created_at, u.nome from Post p inner join User u on u.id = p.uid where p.pid = ${req.body.pid}`);
+            return res.json({post: post, respostas: respostas[0]});
+        }
+
+        
         if (req.body.uid && !req.body.titulo) {
             const post = await (conn.schema.raw(`SELECT Post.id, Post.titulo, Post.categoria, Post.created_at, User.nome FROM Post INNER JOIN User ON Post.uid=User.id where uid=${req.body.uid}
             and Post.pid is null
@@ -26,6 +34,12 @@ export default class Post {
             ;`));
             return res.json(post);
         }
+
+        if (req.body.corpo && req.body.uid && req.body.pid) {
+            const post = await conn.schema.raw(`INSERT INTO Post (corpo, uid, pid) VALUES ('${req.body.corpo}', ${req.body.uid}, ${req.body.pid})`);
+            return res.json(post);
+        }
+
         if (req.body.titulo && req.body.categoria && req.body.corpo) {
             return res.json(await conn.insert(req.body).into('Post'));
         } else {

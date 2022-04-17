@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { useRouter } from 'next/router';
 import { RespostaCard } from '../../components/RespostaCard';
+import { ReplyModal } from '../../components/Modal';
 import axios from 'axios';
 
 
@@ -9,6 +10,7 @@ export default function Post() {
 
   const [user, setUser] = useState();
   const [postData, setPostData] = useState();
+  const [replyModal, setReplyModal] = useState(false);
   const router = useRouter();
   useEffect(async () => {
     if (router.isReady) {
@@ -20,13 +22,39 @@ export default function Post() {
 
 useEffect(() => {
   if (postData) {
-    document.title = `${postData.titulo} - Update Donate`;
+    console.log(postData);
+    document.title = `${postData.post.titulo} - Update Donate`;
   }
 }, [postData]);
+
+const setModalVisible = () => {
+  setReplyModal(!replyModal);
+}
+
+const sendReply =  async (value) => {
+
+  await axios.post('http://localhost:4000/api/post', {
+    corpo: value,
+    uid: user.id,
+    pid: router.query.post,
+  });
+  setPostData({...postData, respostas: [...postData.respostas, {
+    id: user.id,
+    corpo: value,
+    nome: user.nome,
+    pid: router.query.post,
+    created_at: new Date().toLocaleDateString().split('/').reverse().join('-'),
+  }]});
+  setReplyModal(false);
+
+}
+
 
   return (
    
     <div>
+
+      {replyModal && <ReplyModal setModal={setModalVisible} sendReply={sendReply}/>}
       <Header user={user}/>
       {postData &&
       <main className="conteudo_principal">
@@ -63,7 +91,7 @@ useEffect(() => {
         
 
         <div className="discussao_adicionar-comentario">
-          <button className="discussao_btn">Adicionar à discussão</button>
+          <button className="discussao_btn" onClick={setReplyModal}>Adicionar à discussão</button>
         </div>
       </main>
       }
