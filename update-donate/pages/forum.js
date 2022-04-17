@@ -11,9 +11,8 @@ export default function Forum() {
   useEffect(async () => {
     const postRes = await axios.get('http://localhost:4000/api/post');
     setUser(JSON.parse(sessionStorage.getItem('user')));
-    console.log(postRes);
-    console.log(user)
-    setPosts({all: postRes.data[0], filtered: postRes.data[0]});
+    console.log("Res ",postRes);
+    setPosts({all: postRes.data, filtered: postRes.data});
   }, [])
 
   const filterPosts = (e) => {
