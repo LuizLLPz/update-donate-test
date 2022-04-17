@@ -13,9 +13,10 @@ export default class Post {
 
     static post = async (req, res, conn) => {
         if(req.body.pid) {
-            const post =  await conn.select().from('Post').where({id: req.body.pid});
-            console.log(post)
-            return res.json({post: post, respostas: 'resp'});
+            //Select post and replies based on pid
+            const post = await conn.select('*').from('Post').where('id', req.body.pid); 
+            const respostas = await conn.select('*').from('Post').where('pid', req.body.pid);
+            return res.json({post: post, respostas: respostas});
         }
 
         if (req.body.uid && !req.body.titulo) {
