@@ -3,11 +3,12 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+
 export default {
   development: {
     client: 'mysql2',
     connection: {
-      uri: 'mysql://root:@localhost/update_donate'
+	    uri: "mysql://root@localhost:3306/update_donate" 
     }
   }
 

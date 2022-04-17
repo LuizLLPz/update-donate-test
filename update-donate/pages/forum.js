@@ -5,7 +5,6 @@ import axios from "axios";
 
 export default function Forum() {
   const [user, setUser] = useState();
-
   const [posts, setPosts] = useState({});
   
   useEffect(async () => {
