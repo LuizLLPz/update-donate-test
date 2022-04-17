@@ -15,7 +15,7 @@ export default class Post {
         if(req.body.pid) {
             //Select post and replies based on pid
             const post = await conn.select('*').from('Post').where('id', req.body.pid); 
-            const respostas = await conn.select('*').from('Post').where('pid', req.body.pid);
+            const respostas = await conn.select('*').from('Post').where('pid', req.body.pid).innerJoin('User', 'User.id', 'Post.uid');
             return res.json({post: post, respostas: respostas});
         }
 
